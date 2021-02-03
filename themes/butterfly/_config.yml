@@ -7,15 +7,15 @@
 #   name || link || icon
 
 menu:
-  首页: / || fa fa-home
-  时间轴: /archives/ || fa fa-archive
-  标签: /tags/ || fa fa-tags
-  分类: /categories/ || fa fa-folder-open
-  清单||fa fa-heartbeat:
-    - 友人帐 || /link/ || fa fa-link
-    - 分享 || /share/ || fas fa-share
-  留言板: /messageboard/ || fas fa-comment-dots
-  关于作者: /about/ || fas fa-user-tag
+  # 首页: / || fa fa-home
+  # 时间轴: /archives/ || fa fa-archive
+  # 标签: /tags/ || fa fa-tags
+  # 分类: /categories/ || fa fa-folder-open
+  # 清单||fa fa-heartbeat:
+  #   - 友人帐 || /link/ || fa fa-link
+  #   - 分享 || /share/ || fas fa-share
+  # 留言板: /messageboard/ || fas fa-comment-dots
+  # 关于作者: /about/ || fas fa-user-tag
 
 # Hide the child menu items in mobile sidebar
 hide_sidebar_menu_child: false

@@ -8,12 +8,11 @@
 
 menu:
   首页: / || fa fa-home
-  时间轴: /archives/ || fa fa-archive
-  标签: /tags/ || fa fa-tags
-  分类: /categories/ || fa fa-folder-open
-  清单||fa fa-heartbeat:
-    - 友人帐 || /link/ || fa fa-link
-    - 分享 || /share/ || fas fa-share
+  找文章||fas fa-book:
+    - 分类 || /categories/ || fa fa-folder-open
+    - 标签 || /tags/ || fa fa-tags
+    - 归档 || /archives/ || fa fa-archive
+  小伙伴: /link/ || fa fa-link
   留言板: /messageboard/ || fas fa-comment-dots
   关于作者: /about/ || fas fa-user-tag
 
@@ -55,7 +54,10 @@ algolia_search:
 
 # Local search
 local_search:
-  enable: false
+  enable: true
+  labels:
+    input_placeholder: Search for Posts
+    hits_empty: "We didn't find any results for the search: ${query}" # 如果没有查到内容相关内容显示
 
 # Math (數學)
 # --------------------------------------
@@ -84,7 +86,7 @@ favicon: /img/favicon.png
 # Avatar (頭像)
 avatar:
   img:
-    - https://cdn.jsdelivr.net/gh/youthlql/lql_img/blog/avatar.jpg
+    - /img/avatar.jpg
   effect: false
 
 # Disable all banner image
@@ -404,7 +406,8 @@ footer:
   owner:
     enable: true
     since: 2020
-  custom_text: 欢迎来到江小黑不白的小窝
+  custom_text:
+    - <a href="https://www.upyun.com/?utm_source=lianmeng&amp;utm_medium=referra"><img src="/img/upyun.png" align="absmiddle" width="50px" height="25px" /></a><span>提供加速服务</span><br/><a href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>浙ICP备20000987号-1</span></a>
   copyright: true # Copyright of theme and framework
 
 # Analysis
@@ -858,7 +861,8 @@ css_prefix: true
 # 插入代码到头部 </head> 之前 和 底部 </body> 之前
 inject:
   head:
-    # - <link rel="stylesheet" href="/xxx.css">
+    - <link rel="stylesheet" href="/css/style.min.css">
+    - <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/tags.css">
   bottom:
     # - <script src="xxxx"></script>
 
