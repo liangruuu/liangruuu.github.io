@@ -40,8 +40,9 @@ copy:
 # formal:
 #   icon: link || the description
 social:
-  fab fa-github: https://github.com/liangruuu || Github
-  fas fa-envelope: liangruuu@163.com || Email
+  iconfont icon-email: https://liangruuu@163.com || Email
+  iconfont icon-zhihu: https://www.zhihu.com/people/lexingtonnn || zhihu
+  iconfont icon-lianhe4: https://space.bilibili.com/954462 || bilibili
 
 # search (搜索)
 # --------------------------------------
@@ -313,7 +314,7 @@ valine:
   appId: NK0gI9gO4HnSbKU77or2HXNz-9Nh9j0Va # leancloud application app id
   appKey: Opter8J6uQWDIOXyx6NJgLLr # leancloud application app key
   pageSize: 10 # comment list page size
-  avatar: monsterid # gravatar style https://valine.js.org/#/avatar
+  avatar: mp # gravatar style https://valine.js.org/#/avatar
   lang: zh-CN # i18n: zh-CN/zh-TW/en/ja
   placeholder: 留下你的评论吧~ # valine comment input placeholder (like: Please leave your footprints)
   guest_info: nick,mail,link # valine comment header info (nick/mail/link)
@@ -321,7 +322,7 @@ valine:
   serverURLs: # This configuration is suitable for domestic custom domain name users, overseas version will be automatically detected (no need to manually fill in)
   bg: # valine background
   emojiCDN: # emoji CDN
-  enableQQ: false # enable the Nickname box to automatically get QQ Nickname and QQ Avatar
+  enableQQ: true # enable the Nickname box to automatically get QQ Nickname and QQ Avatar
   requiredFields: nick,mail # required fields (nick/mail)
   option:
 
@@ -862,6 +863,7 @@ css_prefix: true
 inject:
   head:
     - <link rel="stylesheet" href="/css/style.min.css">
+    - <link rel="stylesheet" href="/css/iconfont.css">
     - <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/tags.css">
   bottom:
     # - <script src="xxxx"></script>
