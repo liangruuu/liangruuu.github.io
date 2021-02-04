@@ -17,13 +17,18 @@
 
 .icon-email:before {
   content: "\e501";
+  font-size: 20px;
 }
 
 .icon-zhihu:before {
   content: "\e637";
+  font-size: 20px;
+  color: rgb(0, 102, 255);
 }
 
 .icon-lianhe4:before {
   content: "\e643";
+  font-size: 20px;
+  color: rgb(1, 163, 217);
 }
 
