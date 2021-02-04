@@ -22,7 +22,7 @@ hide_sidebar_menu_child: false
 # Code Blocks (代碼相關)
 # --------------------------------------
 
-highlight_theme: light #  darker / pale night / light / ocean / mac / mac light / false
+highlight_theme: mac light #  darker / pale night / light / ocean / mac / mac light / false
 highlight_copy: true # copy button
 highlight_lang: true # show the code language
 highlight_shrink: false # true: shrink the code blocks / false: expand the code blocks | none: expand code blocks and hide the button
@@ -100,8 +100,9 @@ index_img: https://cdn.jsdelivr.net/gh/liangruuu/static_resources/blog/202102040
 default_top_img:
 
 # The banner image of archive page
-archive_img:
+archive_img: https://cdn.jsdelivr.net/gh/liangruuu/static_resources/blog/20210204172904.png
 
+# https://cdn.jsdelivr.net/gh/liangruuu/static_resources/blog/20210204171625.png
 # If the banner of tag page not setting, it will show the top_img
 # note: tag page, not tags page (子標籤頁面的 top_img)
 tag_img:
@@ -408,7 +409,7 @@ footer:
     enable: true
     since: 2020
   custom_text:
-    - <a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="/img/upyun.png" align="absmiddle" width="50px" height="25px" /></a><span>提供加速服务</span><br/><a href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>浙ICP备20000987号-1</span></a>
+    - <span>本网站由</span><a href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="/img/upyun.png" align="absmiddle" width="50px" height="25px" /></a><span>提供CDN加速服务</span><br/><a href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>浙ICP备20000987号-1</span></a>
   copyright: true # Copyright of theme and framework
 
 # Analysis
@@ -515,7 +516,7 @@ tag_ui: # 留空或 index
 # Website Background (設置網站背景)
 # can set it to color or image (可設置圖片 或者 顔色)
 # The formal of image: url(http://xxxxxx.com/xxx.jpg)
-background: url(https://cdn.jsdelivr.net/gh/youthlql/lql_img/blog/background.jpg)
+background: url(https://cdn.jsdelivr.net/gh/liangruuu/static_resources/blog/20210204093652.jpg)
 
 # Footer Background
 footer_bg: false
@@ -590,7 +591,7 @@ display_mode: light
 
 # Beautify (美化頁面顯示)
 beautify:
-  enable: false
+  enable: true
   field: post # site/post
   title-prefix-icon: '\f0c1'
   title-prefix-icon-color: "#F47466"

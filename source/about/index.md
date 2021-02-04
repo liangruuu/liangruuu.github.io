@@ -4,6 +4,7 @@ date: 2021-02-02 18:18:24
 type: "about"
 aside: false
 comments: false
+top_img: https://cdn.jsdelivr.net/gh/liangruuu/static_resources/blog/20210204160034.jpg
 ---
 
 <div>
