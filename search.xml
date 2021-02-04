@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>article2</title>
+      <link href="post/be06406e.html"/>
+      <url>post/be06406e.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="1-dasdas"><a href="#1-dasdas" class="headerlink" title="1. dasdas"></a>1. dasdas</h3><h4 id="2-adasd"><a href="#2-adasd" class="headerlink" title="2. adasd"></a>2. adasd</h4><ul><li>dsadas<ul><li>dsadas</li></ul></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 编程语言 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 算法 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hello World</title>
       <link href="post/4a17b156.html"/>
       <url>post/4a17b156.html</url>
@@ -22,9 +47,9 @@
       
         <tags>
             
-            <tag> 标签 </tag>
-            
             <tag> 算法 </tag>
+            
+            <tag> 标签 </tag>
             
         </tags>
       
