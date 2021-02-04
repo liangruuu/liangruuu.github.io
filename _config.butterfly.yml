@@ -93,7 +93,7 @@ avatar:
 disable_top_img: false
 
 # The banner image of home page
-index_img: https://cdn.jsdelivr.net/gh/youthlql/lql_img/blog/background.jpg
+index_img: https://cdn.jsdelivr.net/gh/liangruuu/static_resources/blog/20210204093652.jpg
 
 # If the banner of page not setting, it will show the top_img
 default_top_img:

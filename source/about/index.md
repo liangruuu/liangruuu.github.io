@@ -23,11 +23,7 @@ comments: false
 </div>
 <div class="checkbox blue">
   <input type="radio" checked/>
-  <p>正在考取研究生的弱鸡往届毕业生，今年必上岸😖</p>
-</div>
-<div class="checkbox blue">
-  <input type="radio" checked/>
-  <p>发现在社交平台上当个愤青并没有软用，所以开始踏踏实实学习建设家园💪</p>
+  <p>正在考取研究生的弱鸡往届毕业生，今年必上岸💪</p>
 </div>
 <div class="checkbox blue">
   <input type="radio" checked/>
