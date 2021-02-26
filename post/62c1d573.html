@@ -1,0 +1,237 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Leetcode42. 接雨水 | 歪比巴卜</title><meta name="keywords" content="栈"><meta name="author" content="江小黑不白"><meta name="copyright" content="江小黑不白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="转载自：Leetcode题解（windliang），略有增删 栈模板使用栈解题思想">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode42. 接雨水">
+<meta property="og:url" content="http://example.com/post/62c1d573.html">
+<meta property="og:site_name" content="歪比巴卜">
+<meta property="og:description" content="转载自：Leetcode题解（windliang），略有增删 栈模板使用栈解题思想">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2020-08-24T02:51:50.000Z">
+<meta property="article:modified_time" content="2021-02-26T06:45:28.166Z">
+<meta property="article:author" content="江小黑不白">
+<meta property="article:tag" content="栈">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/62c1d573"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2021-02-26 14:45:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/tags.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 小伙伴</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">歪比巴卜</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 小伙伴</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Leetcode42. 接雨水</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-24T02:51:50.000Z" title="发表于 2020-08-24 10:51:50">2020-08-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-02-26T06:45:28.166Z" title="更新于 2021-02-26 14:45:28">2021-02-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>转载自：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/problems/trapping-rain-water/solution/xiang-xi-tong-su-de-si-lu-fen-xi-duo-jie-fa-by-w-8/">Leetcode题解（windliang），略有增删</a></strong></p>
+<p><strong>栈模板<a href="./%E4%BD%BF%E7%94%A8%E6%A0%88%E8%A7%A3%E9%A2%98%E6%80%9D%E6%83%B3.md">使用栈解题思想</a></strong></p>
+<a id="more"></a>
+
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/1598237950112.png" alt="1598237950112"></p>
+<p><strong>先从使用栈的几个前提条件出发：</strong></p>
+<ol>
+<li>是否涉及到<strong>比较</strong>：雨水容积 = (左侧墙和右侧墙相减) * 两堵墙之间的距离，相减就是比较</li>
+<li>是否涉及到<strong>延迟比较</strong>：肯定先计算中间那两堵墙之间的容积再计算外侧两堵墙之间的容积，而根据数组从左到右的遍历顺序，最外侧左侧的那堵墙肯定是先被进行处理和判断的，但是他要和最后遍历到的右侧墙进行比较。所以涉及到延迟比较</li>
+</ol>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/1598238133246.png" alt="1598238133246"></p>
+<p><strong>满足了延迟比较的特点，所以使用栈来辅助结题</strong></p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/1598237911772.png" alt="1598237911772"></p>
+<p>说到栈，我们肯定会想到括号匹配了。我们仔细观察蓝色的部分，可以和括号匹配类比下。每次匹配出一对括号（找到对应的一堵墙），就计算这两堵墙中的水。</p>
+<p><strong>我们用栈保存每堵墙。</strong></p>
+<p>当遍历墙的高度的时候，如果当前高度小于栈顶的墙高度，说明这里会有积水，我们将墙的高度的下标入栈。</p>
+<p>如果当前高度大于栈顶的墙的高度，说明之前的积水到这里停下，我们可以计算下有多少积水了。计算完，就把当前的墙继续入栈，作为新的积水的墙。</p>
+<p>总体的原则就是</p>
+<ol>
+<li>当前高度小于等于栈顶高度，入栈，指针后移。</li>
+<li>当前高度大于栈顶高度，出栈，计算出当前墙和栈顶的墙之间水的多少。然后计算当前的高度和新栈的高度的关系，重复第 2 步。直到当前墙的高度不大于栈顶高度或者栈空，然后把当前墙入栈，指针后移。</li>
+</ol>
+<p>我们看具体的例子。</p>
+<ul>
+<li><p>首先将 height [ 0 ] 入栈。然后 current 指向的高度大于栈顶高度，所以把栈顶 height [ 0 ] 出栈，然后栈空了，再把 height [ 1 ] 入栈。current 后移</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/884e05b8d73985e777bbfdec92c9b77db5bd6305df67c15c321fa725c4a9198b-image.png" alt="image.png"></p>
+</li>
+<li><p>然后 <code>current</code> 指向的高度小于栈顶高度，<code>height [ 2 ]</code> 入栈，<code>current</code> 后移。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/a0c201eb77c2f3640968ddea89a1907c6ac831f07577c4526ee8c049191b42df-image.png" alt="image.png"></p>
+</li>
+<li><p>然后 current 指向的高度大于栈顶高度，栈顶 height [ 2 ] 出栈。计算 height [ 3 ] 和新的栈顶之间的水。计算完之后继续判断 current 和新的栈顶的关系。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/d290b4d7112bc6755fd0fbe17833d67d8d4cd8ca23b4d48bc912bd961d047d98-image.png" alt="image.png"></p>
+</li>
+<li><p><code>current</code> 指向的高度大于栈顶高度，栈顶 <code>height [ 1 ]</code> 出栈，栈空。所以把 <code>height [ 3 ]</code> 入栈。<code>currtent</code> 后移。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/32f62626e0a86ed91ee48bd94a923556cffaa6b492f4916051e084f610cfd0d3-image.png" alt="image.png"></p>
+</li>
+<li><p>然后 <code>current</code> 指向的高度小于栈顶 <code>height [ 3 ]</code> 的高度，height <code>[ 4 ]</code> 入栈。<code>current</code> 后移。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/3e26c51a348d968e48f60cbc6efadac1ed108eec7f44bf5c174ace3c1e3289aa-image.png" alt="image.png"></p>
+</li>
+<li><p>然后 <code>current</code> 指向的高度小于栈顶 <code>height [ 4 ]</code> 的高度，<code>height [ 5 ]</code> 入栈。<code>current</code> 后移。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/885b5225d840ba21b2219f76e41e74324f95d8a27d59e50a1066606cb64b5e7e-image.png" alt="image.png"></p>
+</li>
+<li><p>然后 current 指向的高度大于栈顶 height [ 5 ] 的高度，将栈顶 height [ 5 ] 出栈，然后计算 current 指向的墙和新栈顶 height [ 4 ] 之间的水。计算完之后继续判断 current 的指向和新栈顶的关系。此时 height [ 6 ] 不大于栈顶 height [ 4 ] ，所以将 height [ 6 ] 入栈。current 后移。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/e051367f8001808826039760cad0c9a3864403baf5c845d87be18752f3147a1b-image.png" alt="image.png"></p>
+</li>
+<li><p>然后 current 指向的高度大于栈顶高度，将栈顶 height [ 6 ] 出栈。计算和新的栈顶 height [ 4 ] 组成两个边界中的水。然后判断 current 和新的栈顶 height [ 4 ] 的关系，依旧是大于，所以把 height [ 4 ] 出栈。计算 current 和 新的栈顶 height [ 3 ] 之间的水。然后判断 current 和新的栈顶 height [ 3 ] 的关系，依旧是大于，所以把 height [ 3 ] 出栈，栈空。将 current 指向的 height [ 7 ] 入栈。current 后移。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./Leetcode42-%E6%8E%A5%E9%9B%A8%E6%B0%B4/1f82b54ad14a3014908ddcbc13aaf46d2f3260f78277c6ec801aae28d1b17f98-image.png" alt="image.png"></p>
+</li>
+</ul>
+<p><strong>我们根据栈模板中提到的<code>必写代码</code>来分析如下答案</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">trap</span><span class="params">(<span class="keyword">int</span>[] height)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    Stack&lt;Integer&gt; stack = <span class="keyword">new</span> Stack&lt;&gt;();</span><br><span class="line">    <span class="keyword">int</span> current = <span class="number">0</span>;</span><br><span class="line">  	<span class="comment">// 1. 必写代码之一：对原始数据的循环遍历</span></span><br><span class="line">    <span class="keyword">while</span> (current &lt; height.length) &#123;</span><br><span class="line">      	<span class="comment">// 2. 必写代码之二：对栈的判空，不管是用while还是if</span></span><br><span class="line">        <span class="keyword">while</span> (!stack.empty() &amp;&amp; height[current] &gt; height[stack.peek()]) &#123;</span><br><span class="line">          	<span class="comment">// 3. 必写代码之三：取出栈顶元素</span></span><br><span class="line">            <span class="keyword">int</span> h = height[stack.peek()];</span><br><span class="line">            <span class="comment">// 4. 必写代码之四：出栈</span></span><br><span class="line">            stack.pop();</span><br><span class="line">            <span class="keyword">if</span> (stack.empty()) &#123; <span class="comment">// 栈空就出去</span></span><br><span class="line">                <span class="keyword">break</span>; </span><br><span class="line">            &#125;</span><br><span class="line">          	<span class="comment">// 获取栈顶元素之后的具体比较逻辑</span></span><br><span class="line">            <span class="keyword">int</span> distance = current - stack.peek() - <span class="number">1</span>; </span><br><span class="line">            <span class="keyword">int</span> min = Math.min(height[stack.peek()], height[current]);</span><br><span class="line">            sum = sum + distance * (min - h);</span><br><span class="line">        &#125;</span><br><span class="line">      	<span class="comment">// 5. 必写代码之五：入栈</span></span><br><span class="line">      	<span class="comment">// 对元素数据里的每一个元素都进行栈操作</span></span><br><span class="line">        stack.push(current); </span><br><span class="line">        current++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">江小黑不白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/62c1d573.html">http://example.com/post/62c1d573.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">歪比巴卜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%A0%88/">栈</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/3163c5fe.html"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Leetcode20. 有效的括号</div></div></a></div><div class="next-post pull-right"><a href="/post/6bf51b4b.html"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Leetcode94. 二叉树的中序遍历</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/1e4fa564.html" title="Leetcode103. 二叉树的锯齿形层次遍历"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-09-04</div><div class="title">Leetcode103. 二叉树的锯齿形层次遍历</div></div></a></div><div><a href="/post/3ac91e5e.html" title="Leetcode144. 二叉树的前序遍历"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-24</div><div class="title">Leetcode144. 二叉树的前序遍历</div></div></a></div><div><a href="/post/6ac94452.html" title="Leetcode145. 二叉树的后序遍历"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-24</div><div class="title">Leetcode145. 二叉树的后序遍历</div></div></a></div><div><a href="/post/3163c5fe.html" title="Leetcode20. 有效的括号"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-24</div><div class="title">Leetcode20. 有效的括号</div></div></a></div><div><a href="/post/8459516d.html" title="Leetcode402. 移掉K位数字"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-23</div><div class="title">Leetcode402. 移掉K位数字</div></div></a></div><div><a href="/post/71ca1465.html" title="Leetcode496. 下一个更大元素 I"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-24</div><div class="title">Leetcode496. 下一个更大元素 I</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-info-avatar is-center"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">江小黑不白</div><div class="author-info__description">SHU给我一个机会</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/liangruuu"><i class="fab fa-github"></i><span>我的Github</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://liangruuu@163.com" target="_blank" title="Email"><i class="iconfont icon-email"></i></a><a class="social-icon" href="https://www.zhihu.com/people/lexingtonnn" target="_blank" title="zhihu"><i class="iconfont icon-zhihu"></i></a><a class="social-icon" href="https://space.bilibili.com/954462" target="_blank" title="bilibili"><i class="iconfont icon-lianhe4"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">这里是公告。</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/be06406e.html" title="article2"><img data-lazy-src="https://cdn.jsdelivr.net/gh/liangruuu/static_resources/blog/20210204093652.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="article2"/></a><div class="content"><a class="title" href="/post/be06406e.html" title="article2">article2</a><time datetime="2021-02-04T07:12:54.000Z" title="发表于 2021-02-04 15:12:54">2021-02-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/4a17b156.html" title="Hello World"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Hello World"/></a><div class="content"><a class="title" href="/post/4a17b156.html" title="Hello World">Hello World</a><time datetime="2021-02-02T06:42:02.659Z" title="发表于 2021-02-02 14:42:02">2021-02-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/23310d0f.html" title="Leetcode404. 左叶子之和"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode404. 左叶子之和"/></a><div class="content"><a class="title" href="/post/23310d0f.html" title="Leetcode404. 左叶子之和">Leetcode404. 左叶子之和</a><time datetime="2020-09-04T14:08:52.000Z" title="发表于 2020-09-04 22:08:52">2020-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/148a306b.html" title="Leetcode257. 二叉树的所有路径"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode257. 二叉树的所有路径"/></a><div class="content"><a class="title" href="/post/148a306b.html" title="Leetcode257. 二叉树的所有路径">Leetcode257. 二叉树的所有路径</a><time datetime="2020-09-04T13:50:58.000Z" title="发表于 2020-09-04 21:50:58">2020-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/d778fc0e.html" title="Leetcode235. 二叉搜索树的最近公共祖先"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode235. 二叉搜索树的最近公共祖先"/></a><div class="content"><a class="title" href="/post/d778fc0e.html" title="Leetcode235. 二叉搜索树的最近公共祖先">Leetcode235. 二叉搜索树的最近公共祖先</a><time datetime="2020-09-04T13:10:59.000Z" title="发表于 2020-09-04 21:10:59">2020-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/62dc7c8b.html" title="Leetcode226. 翻转二叉树"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode226. 翻转二叉树"/></a><div class="content"><a class="title" href="/post/62dc7c8b.html" title="Leetcode226. 翻转二叉树">Leetcode226. 翻转二叉树</a><time datetime="2020-09-04T12:47:13.000Z" title="发表于 2020-09-04 20:47:13">2020-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/1e4fa564.html" title="Leetcode103. 二叉树的锯齿形层次遍历"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode103. 二叉树的锯齿形层次遍历"/></a><div class="content"><a class="title" href="/post/1e4fa564.html" title="Leetcode103. 二叉树的锯齿形层次遍历">Leetcode103. 二叉树的锯齿形层次遍历</a><time datetime="2020-09-04T11:44:52.000Z" title="发表于 2020-09-04 19:44:52">2020-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/3b6ad9e9.html" title="Leetcode95. 不同的二叉搜索树 II"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode95. 不同的二叉搜索树 II"/></a><div class="content"><a class="title" href="/post/3b6ad9e9.html" title="Leetcode95. 不同的二叉搜索树 II">Leetcode95. 不同的二叉搜索树 II</a><time datetime="2020-09-04T10:41:04.000Z" title="发表于 2020-09-04 18:41:04">2020-09-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/49af10aa.html" title="Leetcode445. 两数相加 II"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode445. 两数相加 II"/></a><div class="content"><a class="title" href="/post/49af10aa.html" title="Leetcode445. 两数相加 II">Leetcode445. 两数相加 II</a><time datetime="2020-09-03T12:54:34.000Z" title="发表于 2020-09-03 20:54:34">2020-09-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/dad28f1c.html" title="Leetcode143. 重排链表"><img data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Leetcode143. 重排链表"/></a><div class="content"><a class="title" href="/post/dad28f1c.html" title="Leetcode143. 重排链表">Leetcode143. 重排链表</a><time datetime="2020-09-03T12:12:11.000Z" title="发表于 2020-09-03 20:12:11">2020-09-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 江小黑不白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><span>本网站由</span><a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="/img/upyun.png" align="absmiddle" width="50px" height="25px" /></a><span>提供CDN加速服务</span><br/><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>浙ICP备20000987号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'NK0gI9gO4HnSbKU77or2HXNz-9Nh9j0Va',
+      appKey: 'Opter8J6uQWDIOXyx6NJgLLr',
+      placeholder: '留下你的评论吧~',
+      avatar: 'mp',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

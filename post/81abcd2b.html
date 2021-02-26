@@ -1,0 +1,238 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>堆相关算法 | 歪比巴卜</title><meta name="keywords" content="堆"><meta name="author" content="江小黑不白"><meta name="copyright" content="江小黑不白"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="堆Heap，俗称优先队列priority queue。在做题时绝大部分都是用来求一串序列中的最大最小值的 一、堆的基础表示 一个堆就是一棵树用数组表示的完全二叉树 堆中某个节点的值总是不大于(小于)其父节点的值，对应叫法为大根堆，小根堆  用数组存放堆，每个堆元素对应的数组下标为，下面一幅图是以初始元素的下标为0制定的  二、向堆中添加元素和Sift Up我们向二叉堆添加一个元素，对于用数组构建的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="堆相关算法">
+<meta property="og:url" content="http://example.com/post/81abcd2b.html">
+<meta property="og:site_name" content="歪比巴卜">
+<meta property="og:description" content="堆Heap，俗称优先队列priority queue。在做题时绝大部分都是用来求一串序列中的最大最小值的 一、堆的基础表示 一个堆就是一棵树用数组表示的完全二叉树 堆中某个节点的值总是不大于(小于)其父节点的值，对应叫法为大根堆，小根堆  用数组存放堆，每个堆元素对应的数组下标为，下面一幅图是以初始元素的下标为0制定的  二、向堆中添加元素和Sift Up我们向二叉堆添加一个元素，对于用数组构建的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg">
+<meta property="article:published_time" content="2020-08-28T07:04:13.000Z">
+<meta property="article:modified_time" content="2021-02-26T06:45:28.313Z">
+<meta property="article:author" content="江小黑不白">
+<meta property="article:tag" content="堆">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/post/81abcd2b"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"search.xml","languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: true,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-02-26 14:45:28'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    })(window)</script><link rel="stylesheet" href="/css/style.min.css"><link rel="stylesheet" href="/css/iconfont.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sviptzk/StaticFile_HEXO@latest/butterfly/css/tags.css"><meta name="generator" content="Hexo 5.3.0"></head><body><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" data-lazy-src="/img/avatar.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">93</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">22</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">3</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 小伙伴</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">歪比巴卜</a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 找文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></li><li><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></li><li><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 归档</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 小伙伴</span></a></div><div class="menus_item"><a class="site-page" href="/messageboard/"><i class="fa-fw fas fa-comment-dots"></i><span> 留言板</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-user-tag"></i><span> 关于作者</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">堆相关算法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-28T07:04:13.000Z" title="发表于 2020-08-28 15:04:13">2020-08-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-02-26T06:45:28.313Z" title="更新于 2021-02-26 14:45:28">2021-02-26</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%AE%97%E6%B3%95/">算法</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>堆Heap，俗称优先队列priority queue。在做题时绝大部分都是用来求一串序列中的最大最小值的</strong></p>
+<h4 id="一、堆的基础表示"><a href="#一、堆的基础表示" class="headerlink" title="一、堆的基础表示"></a>一、堆的基础表示</h4><ol>
+<li><strong>一个堆就是一棵树用数组表示的完全二叉树</strong></li>
+<li><strong>堆中某个节点的值总是不大于(小于)其父节点的值，对应叫法为大根堆，小根堆</strong></li>
+</ol>
+<p>用数组存放堆，每个堆元素对应的数组下标为，下面一幅图是以初始元素的下标为0制定的</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598598625641.png" alt="1598598625641"></p>
+<h4 id="二、向堆中添加元素和Sift-Up"><a href="#二、向堆中添加元素和Sift-Up" class="headerlink" title="二、向堆中添加元素和Sift Up"></a>二、向堆中添加元素和Sift Up</h4><p>我们向二叉堆添加一个元素，对于用数组构建的堆来说，就相当于在数组末尾添加一个元素</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598598781224.png" alt="1598598781224"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598598827464.png" alt="1598598827464"></p>
+<hr>
+<p>若二叉堆为大根堆时，当添加进一个元素之后，若新增元素比它父亲节点要大，则打破了大根堆的性质，所以要对其重新<strong>大根堆化</strong>，即交换父亲和孩子节点值。在数组中的体现就是原来下标的数值交换，并且把当前要处理的堆节点变为父节点</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598598921197.png" alt="1598598921197"></p>
+<p>同理不断地对堆元素进行Sift Up，直到当前处理元素下标为0或者父亲节点值大于孩子结点值</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598599316554.png" alt="1598599316554"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598599388760.png" alt="1598599388760"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 表示对堆里的第几个元素进行siftUp操作</span></span><br><span class="line"><span class="comment">// 调用格式：siftUp(data.size() - 1); 即对堆的最后一个元素进行siftUp操作</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">siftUp</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="comment">// 当前节点下标&gt;0 且 父亲节点值大于当前节点值</span></span><br><span class="line">	<span class="keyword">while</span>(k &gt; <span class="number">0</span> &amp;&amp; data[parent(k)] &lt; data[k])&#123;</span><br><span class="line">    swap(k, parent(k));</span><br><span class="line">    k = parent(k);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">parent</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> data[(k - <span class="number">1</span>) / <span class="number">2</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> t;</span><br><span class="line">  t = data[i];</span><br><span class="line">  data[i] = data[j];</span><br><span class="line">  data[j] = t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="三、取出堆中的最大元素和Sift-Down"><a href="#三、取出堆中的最大元素和Sift-Down" class="headerlink" title="三、取出堆中的最大元素和Sift Down"></a>三、取出堆中的最大元素和Sift Down</h4><p>我们之所以称一个堆为最大堆，是因为我们取出操作只能取堆顶的元素，也就是大根堆里最大的元素，不能取出其他元素。</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600079760.png" alt="1598600079760"></p>
+<hr>
+<p>我们取出堆顶元素，就是把堆顶元素删除然后把堆末尾元素放到堆顶</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600190867.png" alt="1598600190867"></p>
+<p>同时把最后一个元素删除掉，那么首先从元素个数来看，我们成功减少了一个元素，并且我们真正减少的就是原来二叉堆堆顶的那个元素。但是此时堆顶的元素打破了原来大根堆的性质，所以我们需要把堆顶元素往下调整</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600296055.png" alt="1598600296055"></p>
+<p>选择当前节点孩子节点中值最大的那个元素节点，如果孩子节点的最大值要比当前节点值还要大的话就把两者交换位置</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600373041.png" alt="1598600373041"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600419887.png" alt="1598600419887"></p>
+<p>同理沿着节点一直交换下去</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600460251.png" alt="1598600460251"></p>
+<hr>
+<p>直到当前节点值大于左右孩子节点值或者为叶子结点</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600489788.png" alt="1598600489788"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598600590025.png" alt="1598600590025"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取出堆顶元素，并且保持大/小根堆的性质</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">extractMax</span><span class="params">()</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> max = data[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line">  swap(<span class="number">0</span>, data.size() - <span class="number">1</span>);</span><br><span class="line">  <span class="comment">// len 值数组长度</span></span><br><span class="line">  len = data.size() - <span class="number">1</span>;</span><br><span class="line">  siftDown(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> max;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> t;</span><br><span class="line">  t = data[i];</span><br><span class="line">  data[i] = data[j];</span><br><span class="line">  data[j] = t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 表示对堆里的第几个元素进行siftDown操作</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">siftDown</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="comment">// 左孩子节点下标不能大于数组长度</span></span><br><span class="line">  <span class="keyword">while</span>(leftChild(k) &lt; data.size())&#123;</span><br><span class="line">    <span class="keyword">int</span> j = leftChild(k);</span><br><span class="line">    <span class="comment">// 要么是左孩子最大，要么是右孩子最大，选一个跟当前节点交换位置</span></span><br><span class="line">    <span class="keyword">if</span>(j + <span class="number">1</span> &lt; data.size() &amp;&amp; data[j + <span class="number">1</span>] &gt; data[j])&#123;</span><br><span class="line">      j++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(data[k] &gt;= data[j])&#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(k, j);</span><br><span class="line">    <span class="comment">// 不断下沉</span></span><br><span class="line">    k = j;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">leftChild</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">2</span> * k + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">rightChild</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">2</span> * k + <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="四、Heapify-将数任意数组整理成堆的形状"><a href="#四、Heapify-将数任意数组整理成堆的形状" class="headerlink" title="四、Heapify(将数任意数组整理成堆的形状)"></a>四、Heapify(将数任意数组整理成堆的形状)</h4><p><strong>使用之前的Sift Down和Sift Up操作</strong></p>
+<p>一个任意的数组用二叉堆的形式表示：元素组为[15, 17, 19, 13, 22, 16, 28, 30, 41, 62]，但是它不符合大根堆或者小根堆的性质</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598601117916.png" alt="1598601117916"></p>
+<p><strong>从最后一个非叶子结点开始计算</strong>，不断从右到左，从下到上的进行Sift Down操作即可，<strong>最后一个非叶子结点对应数组下标为最后一个节点的父节点的下标</strong></p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598601216156.png" alt="1598601216156"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598601309254.png" alt="1598601309254"></p>
+<p>同理</p>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598601334083.png" alt="1598601334083"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598601346054.png" alt="1598601346054"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598601377917.png" alt="1598601377917"></p>
+<hr>
+<p><img src= "/img/loading.gif" data-lazy-src="./%E5%A0%86%E7%9B%B8%E5%85%B3%E7%AE%97%E6%B3%95/1598601398430.png" alt="1598601398430"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">heapify</span><span class="params">(<span class="keyword">int</span>[] data)</span></span>&#123;</span><br><span class="line">  <span class="keyword">for</span>(<span class="keyword">int</span> i = parent(data.size() - <span class="number">1</span>); i &gt;= <span class="number">0</span>; i--)&#123;</span><br><span class="line">    siftDown(i);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">parent</span><span class="params">(<span class="keyword">int</span> k)</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (k - <span class="number">1</span>) / <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">江小黑不白</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://example.com/post/81abcd2b.html">http://example.com/post/81abcd2b.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">歪比巴卜</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%A0%86/">堆</a></div><div class="post_share"><div class="social-share" data-image="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/a7af824c.html"><img class="prev-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Leetcode210. 课程表 II</div></div></a></div><div class="next-post pull-right"><a href="/post/e27c4f06.html"><img class="next-cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">算法与数据结构优秀博客网站</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/2e4c4b4c.html" title="Leetcode215. 数组中的第K个最大元素"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-21</div><div class="title">Leetcode215. 数组中的第K个最大元素</div></div></a></div><div><a href="/post/ecb11406.html" title="Leetcode剑指 Offer 40. 最小的k个数"><img class="cover" data-lazy-src="https://i.loli.net/2020/05/01/gkihqEjXxJ5UZ1C.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-08-21</div><div class="title">Leetcode剑指 Offer 40. 最小的k个数</div></div></a></div></div></div><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%A0%86%E7%9A%84%E5%9F%BA%E7%A1%80%E8%A1%A8%E7%A4%BA"><span class="toc-number">1.</span> <span class="toc-text">一、堆的基础表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%90%91%E5%A0%86%E4%B8%AD%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0%E5%92%8CSift-Up"><span class="toc-number">2.</span> <span class="toc-text">二、向堆中添加元素和Sift Up</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%8F%96%E5%87%BA%E5%A0%86%E4%B8%AD%E7%9A%84%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0%E5%92%8CSift-Down"><span class="toc-number">3.</span> <span class="toc-text">三、取出堆中的最大元素和Sift Down</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%9B%E3%80%81Heapify-%E5%B0%86%E6%95%B0%E4%BB%BB%E6%84%8F%E6%95%B0%E7%BB%84%E6%95%B4%E7%90%86%E6%88%90%E5%A0%86%E7%9A%84%E5%BD%A2%E7%8A%B6"><span class="toc-number">4.</span> <span class="toc-text">四、Heapify(将数任意数组整理成堆的形状)</span></a></li></ol></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By 江小黑不白</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text"><span>本网站由</span><a target="_blank" rel="noopener" href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral"><img src="/img/upyun.png" align="absmiddle" width="50px" height="25px" /></a><span>提供CDN加速服务</span><br/><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/"><img class="icp-icon" src="/img/icp.png"><span>浙ICP备20000987号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><div class="search-dialog__title" id="local-search-title">本地搜索</div><div id="local-input-panel"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div></div><hr/><div id="local-search-results"></div><span class="search-close-button"><i class="fas fa-times"></i></span></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload/dist/lazyload.iife.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"><script>function loadValine () {
+  function initValine () {
+    let initData = {
+      el: '#vcomment',
+      appId: 'NK0gI9gO4HnSbKU77or2HXNz-9Nh9j0Va',
+      appKey: 'Opter8J6uQWDIOXyx6NJgLLr',
+      placeholder: '留下你的评论吧~',
+      avatar: 'mp',
+      meta: 'nick,mail,link'.split(','),
+      pageSize: '10',
+      lang: 'zh-CN',
+      recordIP: false,
+      serverURLs: '',
+      emojiCDN: '',
+      emojiMaps: "",
+      enableQQ: true,
+      path: window.location.pathname,
+    }
+
+    if (true) { 
+      initData.requiredFields= ('nick,mail'.split(','))
+    }
+    
+    if (false) {
+      const otherData = false
+      initData = Object.assign(initData, otherData)
+    }
+    
+    const valine = new Valine(initData)
+  }
+
+  if (typeof Valine === 'function') initValine() 
+  else getScript('https://cdn.jsdelivr.net/npm/valine/dist/Valine.min.js').then(initValine)
+}
+
+if ('Valine' === 'Valine' || !true) {
+  if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+  else setTimeout(loadValine, 0)
+} else {
+  function loadOtherComment () {
+    loadValine()
+  }
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
